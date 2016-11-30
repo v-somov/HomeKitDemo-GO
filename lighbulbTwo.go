@@ -10,7 +10,7 @@ import (
 )
 
 func sendRequestToLighbulb(value int) {
-	resp, err := http.Get(fmt.Sprintf("http://192.168.1.94/digital/5/%v", value))
+	resp, err := http.Get(fmt.Sprintf("http://192.168.1.94/digital/13/%v", value))
 	if err != nil {
 		log.Println("Error:", err)
 	}
@@ -31,7 +31,7 @@ func turnLightOff() {
 
 func brightnessChanged(value int) {
 	log.Println("Brightness changed to: ", value)
-	resp, err := http.Get(fmt.Sprintf("http://192.168.1.94/analog/5/%v", int(value*(255/100))))
+	resp, err := http.Get(fmt.Sprintf("http://192.168.1.94/analog/13/%v", int(value*(255/100))))
 	if err != nil {
 		log.Println("Error:", err)
 	}
@@ -42,7 +42,7 @@ func brightnessChanged(value int) {
 
 func main() {
 	lightBulbInfo := accessory.Info{
-		Name:         "Lightbulb",
+		Name:         "Second Lightbulb",
 		Manufacturer: "Vlad Somov",
 	}
 
@@ -60,7 +60,7 @@ func main() {
 		brightnessChanged(value)
 	})
 
-	bulb, err := hc.NewIPTransport(hc.Config{Pin: "32191123"}, acc.Accessory)
+	bulb, err := hc.NewIPTransport(hc.Config{Pin: "32232232"}, acc.Accessory)
 	if err != nil {
 		log.Fatal(err)
 	}
