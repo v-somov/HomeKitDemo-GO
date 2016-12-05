@@ -12,6 +12,9 @@ Examples of accessories which implements HomeKit Accessory Protocol(HAP) written
   git clone https://github.com/vlad1803/HomeKitDemo-GO
   cd HomeKitDemo-GO
 
+  # Download package along with its dependencies
+  go get github.com/brutella/hc
+
   # Run accessory you like for example for lighbulb
   go run lighbulb.go
   ```
