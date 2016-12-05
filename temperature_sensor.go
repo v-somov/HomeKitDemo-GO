@@ -25,7 +25,7 @@ func parseTemperature(body []byte) (*TemperatureAPIResponse, error) {
 }
 
 func getTemperature() float64 {
-	res, err := http.Get("http://192.168.100.195/temperature")
+	res, err := http.Get("YOUR_IoT_DEVICE_IP_ADRESS/temperature")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -45,6 +45,7 @@ func main() {
 		Manufacturer: "Vlad Somov",
 	}
 
+	// When creating NewTemperatureSensor you should pass (device info, current temp, min temp, max temp and step value)
 	acc := accessory.NewTemperatureSensor(info, getTemperature(), 0, 100, 0.1)
 
 	t, err := hc.NewIPTransport(hc.Config{Pin: "11192123"}, acc.Accessory)

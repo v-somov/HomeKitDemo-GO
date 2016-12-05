@@ -9,8 +9,12 @@ import (
 	"net/http"
 )
 
+//If you are using Arduino IDE you can see your IoT device Ip Address when entering serial monitor and waiting for device to connect to WiFi
+var rootURL = "YOUR_IoT_DEVICE_IP_ADDRESS"
+
 func sendRequestToLighbulb(value int) {
-	resp, err := http.Get(fmt.Sprintf("http://192.168.1.94/digital/5/%v", value))
+	// digital/5 means that you will be sending on\off (1 or 0) state to the 5th pin
+	resp, err := http.Get(fmt.Sprintf("%s/digital/5/%v", rootURL, value))
 	if err != nil {
 		log.Println("Error:", err)
 	}
@@ -31,7 +35,9 @@ func turnLightOff() {
 
 func brightnessChanged(value int) {
 	log.Println("Brightness changed to: ", value)
-	resp, err := http.Get(fmt.Sprintf("http://192.168.1.94/analog/5/%v", int(value*(255/100))))
+	brightness := value * (255 / 100)
+	// analog/5 means that you will be sending value from 0 to 255 to the 5th pin to change brightness
+	resp, err := http.Get(fmt.Sprintf("%s/analog/5/%v", rootURL, int(brightness)))
 	if err != nil {
 		log.Println("Error:", err)
 	}
@@ -41,6 +47,7 @@ func brightnessChanged(value int) {
 }
 
 func main() {
+	// here you provide all infromation about your IoT
 	lightBulbInfo := accessory.Info{
 		Name:         "Lightbulb",
 		Manufacturer: "Vlad Somov",
@@ -60,6 +67,7 @@ func main() {
 		brightnessChanged(value)
 	})
 
+	// This pin you will be using to add this device on your iOS device
 	bulb, err := hc.NewIPTransport(hc.Config{Pin: "32191123"}, acc.Accessory)
 	if err != nil {
 		log.Fatal(err)
