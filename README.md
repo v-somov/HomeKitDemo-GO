@@ -15,8 +15,8 @@ Examples of accessories which implements HomeKit Accessory Protocol(HAP) written
   # Download package along with its dependencies
   go get github.com/brutella/hc
 
-  # Run accessory you like for example for lighbulb
-  go run lighbulb.go
+  # Run accessory you like for example for lightbulb
+  go run lightbulb.go
   ```
 4. Setup Your Iot Device IP Address and correct pins to which your IoT aRest api is opened 
 5. Pair your device with Home App or any app That uses HomeKit
